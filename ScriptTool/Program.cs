@@ -73,7 +73,7 @@ namespace ScriptTool
                 if (parsedArgs.ContainsKey("-p"))
                 {
                     var data = File.ReadAllBytes(outputPath);
-                    var wpx = new WpxWriter();
+                    var wpx = new WpxWriter("EX2");
                     wpx.AddEntry(2, data);
                     wpx.Save(outputPath);
                 }

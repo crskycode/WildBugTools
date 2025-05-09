@@ -5,11 +5,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+#pragma warning disable IDE0290
+
 namespace CommonLib
 {
     public class WpxWriter
     {
+        private readonly string m_type;
         private readonly List<Entry> m_entries = [];
+
+        public WpxWriter(string type)
+        {
+            m_type = type;
+        }
 
         public void AddEntry(int id, string filePath)
         {
@@ -45,10 +53,15 @@ namespace CommonLib
             using var output = File.Create(filePath);
             using var writer = new BinaryWriter(output);
 
+            // Create type identifier
+            var type = new byte[4];
+            var buf = Encoding.ASCII.GetBytes(m_type);
+            Array.Copy(buf, type, buf.Length);
+
             // Write header
 
             writer.Write(0x1A585057);   // WPX
-            writer.Write(0x325845);     // EX2
+            writer.Write(type);
             writer.Write(0x10);         // Unk
             writer.Write((byte)1);      // Unk
             writer.Write((byte)0);      // Unk

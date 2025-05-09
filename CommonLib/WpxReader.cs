@@ -13,11 +13,13 @@ namespace CommonLib
     {
         private static readonly byte[] Signature = Encoding.ASCII.GetBytes("WPX");
 
+        private readonly string m_type;
         private readonly Stream m_input;
         private readonly List<Entry> m_entries;
 
-        public WpxReader(string filePath)
+        public WpxReader(string filePath, string type)
         {
+            m_type = type;
             m_input = File.OpenRead(filePath);
             m_entries = [];
             Parse();
@@ -46,16 +48,22 @@ namespace CommonLib
                 }
             }
 
+            // Create type identifier
+
+            var identifier = new byte[4];
+            var buf = Encoding.ASCII.GetBytes(m_type);
+            Array.Copy(buf, identifier, buf.Length);
+
             // Read information
 
-            var unk1 = reader.ReadInt32();
+            var type = reader.ReadBytes(4);
             var unk2 = reader.ReadInt32();
             var unk3 = reader.ReadByte();
             var unk4 = reader.ReadByte();
             var entry_count = reader.ReadByte();
             var entry_length = reader.ReadByte();
 
-            if (unk1 != 0x325845 || unk2 != 0x10 || unk3 != 1 || unk4 != 0)
+            if (!type.SequenceEqual(identifier))
             {
                 throw new Exception("Invalid WPX file.");
             }

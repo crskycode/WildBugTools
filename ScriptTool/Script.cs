@@ -35,7 +35,7 @@ namespace ScriptTool
                 // Try unpack script from WPX
                 reader.Close();
 
-                using var wpx = new WpxReader(filePath);
+                using var wpx = new WpxReader(filePath, "EX2");
 
                 const int scnId = 2;
 

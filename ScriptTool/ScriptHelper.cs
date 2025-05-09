@@ -12,7 +12,7 @@ namespace ScriptTool
     {
         public static void Decompress(string inputPath, string outputPath)
         {
-            using var reader = new WpxReader(inputPath);
+            using var reader = new WpxReader(inputPath, "EX2");
 
             const int scnId = 2;
 
