@@ -4,7 +4,7 @@ This toolkit is designed for modifying games developed with the WildBug engine.
 
 ## Scripts
 
-Script files for this engine have the `.WBI` or `.SCN` extension and have an identifier `WPX` or `WBUG_SCN` in the file header.
+Script files for this engine have the `.WBI` or `.SCN` extension and have an identifier `WPX.EX2` or `WBUG_SCN` in the file header.
 
 ### Disassembling Scripts
 
