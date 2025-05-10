@@ -2,6 +2,36 @@
 
 This toolkit is designed for modifying games developed with the WildBug engine.
 
+## Resource Packs
+
+Resource pack files for this engine have the `.WBP` extension, and their file header bytes are `ARCFORM4`.
+
+### Extracting Files from a Resource Pack
+
+Run the following command:
+```
+ArcTool -e -in input.WBP -out Extract -cp shift_jis
+```
+
+Parameter Description:
+- `-e`: Extract files from the resource pack.
+- `-in`: Specify the resource pack filename.
+- `-out`: Specify the directory where extracted items will be stored.
+- `-cp`: Specify the encoding of filenames within the resource pack. This is usually `shift_jis`.
+
+### Creating a Resource Pack
+
+Run the following command:
+```
+ArcTool -c -in RootDirectory -out res.WBP -cp shift_jis
+```
+
+Parameter Description:
+- `-c`: Create a resource pack.
+- `-in`: Specify the folder containing files you wish to add to the resource pack.
+- `-out`: Specify the resource pack filename.
+- `-cp`: Specify the encoding of filenames within the resource pack. This is usually `shift_jis`.
+
 ## Scripts
 
 Script files for this engine have the `.WBI` or `.SCN` extension and have an identifier `WPX.EX2` or `WBUG_SCN` in the file header.
