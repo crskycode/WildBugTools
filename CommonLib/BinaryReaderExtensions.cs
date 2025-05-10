@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ScriptTool
+namespace CommonLib
 {
-    internal static class BinaryReaderExtensions
+    public static class BinaryReaderExtensions
     {
         public static string ReadNullTerminatedString(this BinaryReader reader, Encoding encoding)
         {

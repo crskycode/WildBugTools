@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ScriptTool
+namespace CommonLib
 {
-    internal static class BinaryWriterExtensions
+    public static class BinaryWriterExtensions
     {
         public static void WriteByte(this BinaryWriter writer, byte value)
         {
