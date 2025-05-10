@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ScriptTool
 {
-    internal static class StreamExtensions
+    public static class StreamExtensions
     {
         public static void AlignPosition(this Stream stream, int alignment)
         {
