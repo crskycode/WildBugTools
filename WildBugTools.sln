@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonLib", "CommonLib\Comm
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArcTool", "ArcTool\ArcTool.csproj", "{47FC039C-9B0A-4855-AFB5-48409EAE4556}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImgTool", "ImgTool\ImgTool.csproj", "{D85600EE-F3CF-4BD9-A7F9-14488AC67CA3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{47FC039C-9B0A-4855-AFB5-48409EAE4556}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47FC039C-9B0A-4855-AFB5-48409EAE4556}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47FC039C-9B0A-4855-AFB5-48409EAE4556}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D85600EE-F3CF-4BD9-A7F9-14488AC67CA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D85600EE-F3CF-4BD9-A7F9-14488AC67CA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D85600EE-F3CF-4BD9-A7F9-14488AC67CA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D85600EE-F3CF-4BD9-A7F9-14488AC67CA3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
