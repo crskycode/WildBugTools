@@ -93,8 +93,7 @@ namespace CommonLib
 
                 // Check entry information
 
-                if (entry.Format > 15 ||
-                    entry.Position <= 0 ||
+                if (entry.Position <= 0 ||
                     entry.Position >= m_input.Length ||
                     entry.UncompressedLength <= 0 ||
                     entry.CompressedLength < 0)
@@ -133,8 +132,44 @@ namespace CommonLib
                     throw new EndOfStreamException();
                 }
 
-                var decompressor = new WpxDecompressor(m_input, entry.Format, 1, entry.UncompressedLength);
+                var decompressor = new WpxDecompressor(m_input, entry.Format, 1, 0, entry.UncompressedLength);
                 var data = decompressor.Decompress();
+
+                return data;
+            }
+            else
+            {
+                var data = new byte[entry.UncompressedLength];
+
+                if (m_input.Read(data, 0, data.Length) != data.Length)
+                {
+                    throw new EndOfStreamException();
+                }
+
+                return data;
+            }
+        }
+
+        public byte[] ReadImage(int entryId, int base_length, int stride)
+        {
+            var entry = m_entries.FirstOrDefault(entry => entry.Id == entryId);
+
+            if (entry == null)
+            {
+                throw new ArgumentOutOfRangeException(nameof(entryId));
+            }
+
+            if (entry.Format != 0 && entry.CompressedLength != 0)
+            {
+                m_input.Position = entry.Position;
+
+                if (m_input.Position + entry.CompressedLength > m_input.Length)
+                {
+                    throw new EndOfStreamException();
+                }
+
+                var decompressor = new WpxDecompressor(m_input, entry.Format, base_length, stride, entry.UncompressedLength);
+                var data = decompressor.DecompressImage();
 
                 return data;
             }
