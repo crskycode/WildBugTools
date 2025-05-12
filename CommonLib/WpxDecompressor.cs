@@ -170,7 +170,7 @@ namespace CommonLib
 
         private byte[] Decompress1()
         {
-            // [MultiByteOffset]
+            // Offset-2
 
             m_output = new byte[m_output_length];
 
@@ -248,8 +248,8 @@ namespace CommonLib
 
         private byte[] Decompress2()
         {
-            // [ShiftTable]
-            // [MultiByteOffset]
+            // Shift
+            // Offset-2
 
             m_output = new byte[m_output_length];
 
@@ -342,9 +342,9 @@ namespace CommonLib
 
         private byte[] Decompress4()
         {
-            // [ShiftTable]
-            // [Transform]
-            // [MultiByteOffset]
+            // Shift
+            // Transform
+            // Offset-2
 
             m_output = new byte[m_output_length];
 
@@ -452,7 +452,7 @@ namespace CommonLib
 
         private byte[] Decompress8()
         {
-            // [OneByteOffset]
+            // Offset-1
 
             m_output = new byte[m_output_length];
 
@@ -515,8 +515,8 @@ namespace CommonLib
 
         private byte[] Decompress10()
         {
-            // [ShiftTable]
-            // [OneByteOffset]
+            // Shift
+            // Offset-1
 
             m_output = new byte[m_output_length];
 
@@ -594,9 +594,9 @@ namespace CommonLib
 
         private byte[] Decompress12()
         {
-            // [ShiftTable]
-            // [Transform]
-            // [OneByteOffset]
+            // Shift
+            // Transform
+            // Offset-1
 
             m_output = new byte[m_output_length];
 
@@ -689,38 +689,21 @@ namespace CommonLib
 
         public byte[] Decompress()
         {
-            // 8 : OneByteOffset
-            // 4 : Transform
-            // 2 : ShiftTable
-            // 1 : Compressed
-
             if ((m_format & 8) != 0)
             {
                 if ((m_format & 4) != 0)
-                {
                     return Decompress12();
-                }
                 else if ((m_format & 2) != 0)
-                {
                     return Decompress10();
-                }
                 else
-                {
                     return Decompress8();
-                }
             }
             else if ((m_format & 4) != 0)
-            {
                 return Decompress4();
-            }
             else if ((m_format & 2) != 0)
-            {
                 return Decompress2();
-            }
             else
-            {
                 return Decompress1();
-            }
         }
 
         private byte[] DecompressImage0()
@@ -833,16 +816,18 @@ namespace CommonLib
                 {
                     if (ReadBit() != 0)
                     {
-                        offset = dst - 1 - ReadByte();
+                        offset = ReadByte();
                         length = 2;
                     }
                     else
                     {
                         var lo = ReadByte();
                         var hi = ReadByte();
-                        offset = dst - 1 - (lo | (hi << 8));
+                        offset = lo | (hi << 8);
                         length = 3;
                     }
+
+                    offset = dst - 1 - offset;
                 }
                 else
                 {
@@ -1021,16 +1006,18 @@ namespace CommonLib
                 {
                     if (ReadBit() != 0)
                     {
-                        offset = dst - 1 - ReadByte();
+                        offset = ReadByte();
                         length = 2;
                     }
                     else
                     {
                         var lo = ReadByte();
                         var hi = ReadByte();
-                        offset = dst - 1 - (lo | (hi << 8));
+                        offset = lo | (hi << 8);
                         length = 3;
                     }
+
+                    offset = dst - 1 - offset;
                 }
                 else
                 {
@@ -1241,16 +1228,18 @@ namespace CommonLib
                 {
                     if (ReadBit() != 0)
                     {
-                        offset = dst - 1 - ReadByte();
+                        offset = ReadByte();
                         length = 2;
                     }
                     else
                     {
                         var lo = ReadByte();
                         var hi = ReadByte();
-                        offset = dst - 1 - (lo | (hi << 8));
+                        offset = lo | (hi << 8);
                         length = 3;
                     }
+
+                    offset = dst - 1 - offset;
                 }
                 else
                 {
@@ -1573,43 +1562,25 @@ namespace CommonLib
                 if ((m_format & 8) != 0)
                 {
                     if ((m_format & 4) != 0)
-                    {
                         return DecompressImage13();
-                    }
                     else if ((m_format & 2) != 0)
-                    {
                         return DecompressImage11();
-                    }
                     else
-                    {
                         return DecompressImage9();
-                    }
                 }
                 else if ((m_format & 4) != 0)
-                {
                     return DecompressImage5();
-                }
                 else if ((m_format & 2) != 0)
-                {
                     return DecompressImage3();
-                }
                 else
-                {
                     return DecompressImage1();
-                }
             }
             else if ((m_format & 4) != 0)
-            {
                 return DecompressImage4();
-            }
             else if ((m_format & 2) != 0)
-            {
                 return DecompressImage2();
-            }
             else
-            {
                 return DecompressImage0();
-            }
         }
     }
 }
